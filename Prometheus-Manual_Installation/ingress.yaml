@@ -1,0 +1,58 @@
+# ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+  namespace: argocd
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: argo-selfsigned # Matches issuer
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: argocd-server
+          servicePort: https
+    host: argocd.aymlocal # our localhost
+  tls:
+  - secretName: https-cert
+    hosts:
+    - argocd.aymlocal
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: monitoring-ingress
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: argo-selfsigned # Matches issuer
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: monitoring-prometheus-node-exporter
+          servicePort: https
+    host: monitoring.aymlocal # our localhost
+  tls:
+  - secretName: https-cert
+    hosts:
+    - monitoring.aymlocal
+
+
+
+
+
+
+
+
+
