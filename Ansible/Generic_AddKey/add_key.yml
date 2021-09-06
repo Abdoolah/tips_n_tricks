@@ -1,0 +1,12 @@
+---
+# AYM - Jul 2020
+# Adding keypair access
+
+- name: Enabling keypair access
+  hosts: prod:oat
+  gather_facts: false
+  vars: 
+     username: "{{ who }
+
+  roles:
+  - copy_authorized_keys

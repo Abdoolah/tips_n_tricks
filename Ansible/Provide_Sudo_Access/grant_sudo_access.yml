@@ -1,0 +1,13 @@
+---
+# AYM - MAR 2020
+# Create a visudoers file granting sudo access to the specific_command group for the target user
+
+- name: Create the visudo file and group
+  hosts: prod_hosts
+  become: true
+  gather_facts: false
+
+  roles:
+  - visudo_command
+
+

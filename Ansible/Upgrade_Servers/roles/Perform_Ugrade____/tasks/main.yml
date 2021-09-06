@@ -1,0 +1,41 @@
+---
+# AYM - Nov 2019
+# Install package updates 
+
+# Perform the apt-get dist-upgrade
+- name: Do APT-GET Dist-Upgrade
+  apt:
+    upgrade: dist # upgrade all packages to latest version
+  register: upgrade_output
+
+# Check if we need a reboot
+- name: Check If Reboot Is Needed
+  stat: path=/var/run/reboot-required
+  register: file_reboot_required
+
+- meta: end_play
+  when: not file_reboot_required.stat.exists
+
+# Prompt for manual input before doing the actual reboot
+#- name: Confirm reboot of {{ inventory_hostname }}
+#  pause:
+
+- name: Reboot The Server
+  shell: sleep 2 && shutdown -r now "Reboot triggered by Ansible Patch Upgrade Campaign for GCP"
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+# Wait for the server to get back up
+- name: Wait For The Node To Finish Booting
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 120
+
+# Wait a few seconds between hosts, unless we're on the last
+- name: Waiting Between Hosts
+  pause:
+    seconds: 15
+  when: inventory_hostname != ansible_play_hosts[-1]

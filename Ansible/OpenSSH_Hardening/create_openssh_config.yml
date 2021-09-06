@@ -1,0 +1,15 @@
+---
+# AYM - JAN 2021
+# Test - OpenSSH Hardening - Cross Platform
+
+- name: Harden OpenSSH configuration on target hosts
+  hosts: prod_hosts
+  become: true
+  remote_user: admin_user
+
+  gather_facts: true
+  vars: 
+     enablekeyloginonly: no
+
+  roles:
+  - harden_openssh

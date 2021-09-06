@@ -1,0 +1,15 @@
+---
+# AYM - Nov 2019
+# Install package updates on GCP servers
+
+- name: Upgrade Packages & Reboot 
+  hosts: prod_hosts
+  become: true
+  serial: 1 # One host at a time
+  any_errors_fatal: true
+  max_fail_percentage: 0
+  gather_facts: false
+  roles:
+  - Get_Package_Facts_
+  - Perform_Ugrade____
+

@@ -1,0 +1,29 @@
+---
+# AYM - Nov 2019
+# Retrieve List of Packages 
+
+# Perform  an "apt-get update", to ensure latest package lists
+- name: Do APT-GET Update
+  apt:
+    update-cache: yes
+  changed_when: False
+
+# Retrieve the list of packages that have updates
+- name: Get List Of Pending Upgrades
+  command: apt-get --simulate upgrade
+  args:
+    warn: False
+  register: apt_simulate
+  changed_when: False
+
+# Filter out list of pending updates from command output
+- name: Parse APT-GET Output To Get List Of Changed Packages
+  set_fact:
+    updates: '{{ apt_simulate.stdout_lines | select("match", "^Inst ") | list | splitpart(1, " ") | list | sort }}'
+  changed_when: False
+
+# Return the info
+- name: Show Pending Updates
+  debug:
+    var: updates
+  when: updates.0 is defined

@@ -1,0 +1,18 @@
+---
+# main.yml task file  under role/harden_openssh/tasks
+
+- name: "Configure OpenSSH"
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0640
+  notify:
+    - Reload SSH
+
+handlers:
+  - name: Reload SSH
+    service:
+      name: sshd
+      state: reloaded

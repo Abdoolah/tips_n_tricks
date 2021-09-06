@@ -1,0 +1,27 @@
+---
+# AYM - MAR 2020
+# Grant root access to new group specific_command and add user to group
+
+- name: Create specific_command_users group
+  group: 
+      name: specific_command_users
+      system: yes 
+      state: present
+
+- name: Add the target user to the new group
+  user:
+      name: <target_user>
+      groups: specific_command_users
+      append: yes
+
+- name: Add the specific_command package if missing
+  package: 
+      name: specific_command
+      state: latest
+
+- name: Add the permission in the sudoers file
+  lineinfile:
+      dest: "/etc/sudoers.d/specific_command"
+      line: '%specific_command_users ALL=(root) NOPASSWD:/sbin/specific_command'
+      state: present
+      create: yes

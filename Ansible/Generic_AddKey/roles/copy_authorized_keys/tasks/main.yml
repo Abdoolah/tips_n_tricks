@@ -1,0 +1,8 @@
+---
+# AYM - FEB 2020
+
+- name: Set SSH Key
+  authorized_key: 
+     user: "{{ username }}"
+     state: present
+     key: "{{ lookup('file', '/home/<my.account>/.ssh/id_rsa.pub') }}"
