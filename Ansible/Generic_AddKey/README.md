@@ -1,6 +1,6 @@
 # Generic Playbook to install your SSH Keys onto target hosts
 
-The `add_key.yml` playbook calls the [`copy_authorized_keys`](roles/copy_authorized_keys/main.yml) role which uses the [`authorized_key`](https://docs.ansible.com/ansible/latest/collections/ansible/posix/authorized_key_module.html) module to set your authorized key on the target hosts for the user account passed as parameter.
+The `add_key.yml` playbook calls the [`copy_authorized_keys`](roles/copy_authorized_keys/tasks/main.yml) role which uses the [`authorized_key`](https://docs.ansible.com/ansible/latest/collections/ansible/posix/authorized_key_module.html) module to set your authorized key on the target hosts for the user account passed as parameter.
 
 ### To call the playbook use the below command:
 
