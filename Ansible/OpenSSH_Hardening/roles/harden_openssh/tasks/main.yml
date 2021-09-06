@@ -1,5 +1,5 @@
 ---
-# main.yml task file  under role/harden_openssh/tasks
+# main.yml task file  under roles/harden_openssh/tasks
 
 - name: "Configure OpenSSH"
   template:

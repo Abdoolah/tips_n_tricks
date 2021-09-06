@@ -10,6 +10,33 @@ This is a quick and dirty manual deployment of Prometheus on a local Kubernetes 
 
 [Prometheus-Manual_Installation](Prometheus-Manual_Installation/README.md)
 
+---
+
+## Ansible Series - Generic Playbook to install SSH Keys onto target hosts
+A simple playbook to propagate one's public keys on target hosts.
+
+[Generic-AddKey](Ansible/Generic_AddKey/README.md)
+
+---
+
+## Ansible Series - OpenSSH Configuration Hardening
+This playbook deploys a custom hardened OpenSSH configuration file based on the target machine's Linux Distribution.
+
+[OpenSSH Hardening](Ansible/OpenSSH_Hardening/README.md)
+
+---
+
+## Ansible Series - Set Sudo Privileges for specific commands
+Using VISUDO and groups to allow a remote non-sudo user the ability to run specific elevated commands.
+
+[Set Sudo Access](Ansible/Provide_Sudo_Access/README.md)
+
+---
+
+## Ansible Series - Upgrade Debian Servers
+A playbook which will retrieve the list of updates available on the target hosts and safely update the machine, one host at a time. 
+
+[Do Package Upgrade](Ansible/Upgrade_Servers/README.md)
 
 ---
 
