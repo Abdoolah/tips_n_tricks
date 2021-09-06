@@ -1,7 +1,9 @@
 ## Tips & Tricks
 This repository holds some useful and handy techniques to setup or deploy scripts, playbooks or apps I have had experience with.
 
-These have been tested to work as expected on `Fedora 34` running `KIND` local Kubernetes cluster and `docker` version 20.10. 
+- The Kubernetes deployments have been tested to work as expected on `Fedora 34` running `KIND` local Kubernetes cluster and `docker` version 20.10. 
+
+- The Ansible playbooks are successfully run from within `Kali Linux`.
 
 ---
 
