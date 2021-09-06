@@ -17,7 +17,6 @@ The K8s cluster was created using the following [configuration file](kind-cl.yam
 $ kind create cluster --config=kind-cl.yaml
 ```
 
-
 #### Add ingress to the cluster
 Ingress to the cluster is through the Kubertenes version of the NGINX reverse proxy Ingress controller.
 
@@ -48,7 +47,7 @@ $ kubectl create namespace argocd
 $ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 #### Add host to hosts file
-I have defined the entry as per below in my hosts file with machting the definition in the Ingress configuration.
+The matching entry as defined in the Ingress configuration has been added to the hosts file so that it can be resolved to the localhost.
 ```
 $ echo "127.0.0.1 localhost   argocd.aymlocal" >> /etc/hosts
 ```
@@ -59,7 +58,7 @@ $ kubectl apply -f ingress.yaml
 
 ## Access ArgoCD
 
-Access to the ArgoCD UI is through a web browser. For ease and security of access, the above Ingress controller was deployed to connect to the service along with the cert-manager to make use of HTTPS. 
+Access to the ArgoCD UI is through a web browser. For ease and security of access, the above Ingress controller has been deployed as per above to connect to the service along with the cert-manager to make use of HTTPS. 
 
 > https://argocd.aymlocal
 
@@ -77,17 +76,25 @@ And the password is obtained by quering the secret from the install:
 
 The last step is to deploy Prometheus from within ArgoCD using it's official Git repository. The deployment is through the creation of an App from the UI.
 
-![ArgoCD - Prometheus Helm chart configuration](prometheus.app.png "ArgoCD - Prometheus Helm chart configuration")
-
 The Prometheus Git repo to use in the below is:
 `https://github.com/prometheus-community/helm-charts`
 
 From the ArgoCD UI, create a `NEW APP`, fill in the proper details for the source Helm chart, `kube-prometheus-stack  last-version`, then `Create` and `SYNC`.
 
-![Prometheus Metrics](prometheus-metrics.png "Preometheus Graphs and Metrics")
+Following successful deployment, the App details should look like this on the ArgoCD UI:
+
+> ![ArgoCD - Prometheus Helm chart configuration](prometheus.app.png "ArgoCD - Prometheus Helm chart 
+configuration")
+
+Access to the Prometheus interface should now be possible. An example of the queries and graphs of the K8s resources can be seen below:
+
+> ![Prometheus Metrics](prometheus-metrics.png "Preometheus Graphs and Metrics")
 
 
 ## References and Documentation
+
+The following online resources have been helpful in understanding and creating the above mini guideline:
+
 - [Cluster Bootstrapping - App of Apps Pattern](https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/)
 - [Prometheus Official Helm Chart](https://prometheus-community.github.io/helm-charts/)
 - [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx)
